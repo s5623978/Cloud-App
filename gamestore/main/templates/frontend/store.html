@@ -1,0 +1,40 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Games</h2>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="mb-4 card p-4">
+            <h5>Legend of Zelda: Breath of the Wild</h5>
+            <p class="fw-bold">£59.99</p>
+            <p class="small">
+                Join Link and Princess Zelda as they fight to save the land of Hyrule from Ganon.
+            </p>
+            <button class="btn btn-dark">Add to Basket</button>
+        </div>
+
+        <div class="mb-4 card p-4">
+            <h5>Halo Infinite (Campaign DLC)</h5>
+            <p class="fw-bold">£49.99</p>
+            <p class="small">
+                From one of gaming's most iconic sagas, Halo is bigger than ever.
+            </p>
+            <button class="btn btn-dark">Add to Basket</button>
+        </div>
+
+        <div class="mb-4 card p-4">
+            <h5>Minecraft</h5>
+            <p class="fw-bold">£29.99</p>
+            <p class="small">
+                Explore your own unique worlds, survive the night, and create anything you can imagine.
+            </p>
+            <button class="btn btn-dark">Add to Basket</button>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <input class="form-control form-control-lg mb-3" placeholder="Search...">
+    </div>
+</div>
+{% endblock %}
