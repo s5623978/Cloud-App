@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "mist"
+version = "0.1.0"
+description = "Game store Django application"
+authors = ["Jess Booth <s5623978@bournemouth.ac.uk>"]
+packages = [{include = "gamestore"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+django = "^6.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-django = "^4.7.0"
+black = "^24.0.0"
+flake8 = "^7.0.0"
+
+[tool.poetry.scripts]
+manage = "gamestore.manage:execute_from_command_line"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
