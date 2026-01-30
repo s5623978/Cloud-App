@@ -6,24 +6,41 @@
         <h1 class="mb-4">Mist</h1>
 
         <div class="card p-4">
-            <form>
+            <form method="post">
+                {% csrf_token %}
                 <div class="mb-3">
-                    <input class="form-control form-control-lg" placeholder="Email address">
+                    <input type="email" name="email" class="form-control form-control-lg" placeholder="Email address" required>
                 </div>
 
                 <div class="mb-4">
-                    <input type="password" class="form-control form-control-lg" placeholder="Password">
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required>
                 </div>
 
-                <button class="btn btn-dark w-100 mb-3">
+                <button type="submit" name=action value="login" class="btn btn-dark w-100 mb-3">
                     Continue
                 </button>
 
-                <button class="btn btn-outline-dark w-100">
-                    Continue with Google
+                <button type="submit" name=action value="signup" class="btn btn-outline-dark w-100">
+                    Create an account
                 </button>
             </form>
         </div>
     </div>
+</div>
+
+{% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <div class="alert alert-success mt-3">
+          {{ message }}
+        </div>
+        {% else %}
+        <div class="alert alert-danger mt-3">
+          {{ message }}
+        </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
