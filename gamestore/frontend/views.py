@@ -5,6 +5,7 @@ from django.contrib import messages
 from firebase_admin import auth
 from .auth import login_user, create_user
 from .auth import logout
+from .decorators import login_required
 
 
 def landing(request):
@@ -53,6 +54,7 @@ def landing(request):
 
     return render(request, 'frontend/landing.html')
 
+@login_required
 def store(request):
     games_ref = db.collection("games").stream()
 
@@ -70,5 +72,6 @@ def store(request):
 
     return render(request, "frontend/store.html", {"games": games})
 
+@login_required
 def checkout(request):
     return render(request, 'frontend/checkout.html')
