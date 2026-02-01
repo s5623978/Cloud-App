@@ -7,9 +7,17 @@
 
     <div class="d-flex justify-content-between align-items-center">
       <span class="fw-bold">£{{ game.price }}</span>
-      <button class="btn btn-dark btn-sm">
-        Add to Basket
-      </button>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add_to_basket">
+        <input type="hidden" name="game_id" value="{{ game.id }}">
+        <input type="hidden" name="title" value="{{ game.title }}">
+        <input type="hidden" name="price" value="{{ game.price }}">
+
+        <button class="btn btn-dark w-100 mt-2">
+          Add to Basket
+        </button>
+      </form>
     </div>
   </div>
 </div>

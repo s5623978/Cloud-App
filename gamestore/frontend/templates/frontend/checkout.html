@@ -7,43 +7,39 @@
     <div class="col-lg-6">
         <div class="card p-4 mb-4">
             <h6 class="mb-3">Your Basket</h6>
+            {% if basket %}
+                {% for game_id, item in basket.items %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                        <strong>{{ item.title }}</strong><br>
+                        <small class="text-muted">Qty: {{ item.qty }}</small>
+                        </div>
 
-            <div class="d-flex justify-content-between mb-2">
-                <span>Halo Infinite</span>
-                <span>£49.99</span>
-            </div>
+                        <div class="d-flex align-items-center gap-2">
+                        <span>£{{ item.price|floatformat:2 }}</span>
 
-            <div class="d-flex justify-content-between mb-3">
-                <span>Ready or Not</span>
-                <span>£44.99</span>
-            </div>
-
-            <hr>
-
-            <div class="d-flex justify-content-between fw-bold">
-                <span>Total</span>
-                <span>£94.98</span>
-            </div>
+                        <form method="post" class="ms-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove_from_basket">
+                            <input type="hidden" name="game_id" value="{{ game_id }}">
+                            <button class="btn btn-sm btn-outline-danger">✕</button>
+                        </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
     <div class="col-lg-6">
         <div class="card p-4">
-            <h6 class="mb-3">Payment Details</h6>
-
-            <input class="form-control mb-3" placeholder="Name on Card">
-            <input class="form-control mb-3" placeholder="Card Number">
-
-            <div class="row">
-                <div class="col">
-                    <input class="form-control" placeholder="MM / YY">
-                </div>
-                <div class="col">
-                    <input class="form-control" placeholder="CVV">
-                </div>
-            </div>
-
-            <button class="btn btn-dark w-100 mt-4">Pay</button>
+            <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="place_order">
+            <button class="btn btn-dark w-100 mt-4"
+                    {% if not basket %}disabled{% endif %}> Pay 
+            </button>
+            </form>
         </div>
     </div>
 </div>

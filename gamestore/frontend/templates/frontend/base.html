@@ -25,18 +25,49 @@
     <link rel="stylesheet" href="{% static 'frontend/style.css' %}">
 </head>
 <body class="bg-light">
-    
+
+{% if request.session.user %}
 <nav class="navbar navbar-dark bg-dark px-4">
     <a class="navbar-brand" href="/">Mist</a>
-    <div>
-        <a class="btn btn-outline-light me-2" href="/store/">Store</a>
-        <a class="btn btn-outline-light" href="/checkout/">Checkout</a>
-    </div>
+
+    <div class="ms-auto d-flex gap-2">
+
+    {% if request.path == "/store/" %}
+      <a href="/checkout/" class="btn btn-dark">Checkout</a>
+    {% elif request.path == "/checkout/" %}
+      <a href="/store/" class="btn btn-dark">Back to Store</a>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" name="action" value="logout" class="btn btn-outline-danger">Logout</button>
+    </form>
+
+  </div>
 </nav>
+{% endif %}
 
 <div class="container py-5">
     {% block content %}{% endblock %}
+      {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <div class="alert alert-success mt-3">
+          {{ message }}
+        </div>
+        {% else %}
+        <div class="alert alert-danger mt-3">
+          {{ message }}
+        </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
 </div>
+</div>
+
+
+
 
 </body>
 </html>
