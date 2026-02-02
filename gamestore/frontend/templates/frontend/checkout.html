@@ -1,0 +1,46 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Checkout</h2>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card p-4 mb-4">
+            <h6 class="mb-3">Your Basket</h6>
+            {% if basket %}
+                {% for game_id, item in basket.items %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                        <strong>{{ item.title }}</strong><br>
+                        <small class="text-muted">Qty: {{ item.qty }}</small>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2">
+                        <span>£{{ item.price|floatformat:2 }}</span>
+
+                        <form method="post" class="ms-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove_from_basket">
+                            <input type="hidden" name="game_id" value="{{ game_id }}">
+                            <button class="btn btn-sm btn-outline-danger">✕</button>
+                        </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card p-4">
+            <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="place_order">
+            <button class="btn btn-dark w-100 mt-4"
+                    {% if not basket %}disabled{% endif %}> Pay 
+            </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container py-5">
+
+    <h1 class="mb-4">Game Store</h1>
+
+  <div class="row">
+    {% for game in games %}
+      <div class="col-md-4">
+        {% include "frontend/components/game_card.html" %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
